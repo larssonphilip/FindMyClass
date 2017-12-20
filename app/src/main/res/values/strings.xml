@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ClassroomTracker</string>
+    <string name="loading_text">Loading...</string>
+    <string name="no_results">Inget resultat</string>
+    <string name="error_text">Error</string>
+    <string name="interrupted_text">Avbruten</string>
+    <string-array name="course_array">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </string-array>
+</resources>
