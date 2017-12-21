@@ -2,6 +2,7 @@ package org.example.ntn15pln.scheduletracker;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     //TEMP BUTTON
+    private ImageView image;
     private Button cButton;
     private ListView suggestionsList;
     private EditText searchText;
@@ -52,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        cButton = findViewById(R.id.cButton);
+        image = findViewById(R.id.header);
         searchText = findViewById(R.id.search);
         suggestionsList = findViewById(R.id.suggestion_list);
     }
 
     private void setListeners() {
 
-        cButton.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
