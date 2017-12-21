@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
+import java.util.Calendar;
+
 public class CalendarFragment extends Fragment {
     private CalendarView mCalendarView;
     private static String chosenDate;
@@ -28,6 +30,8 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
+
+
 
     public static String getChosenDate() {
         return chosenDate;
