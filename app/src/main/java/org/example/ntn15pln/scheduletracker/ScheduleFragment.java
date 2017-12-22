@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
-    private ArrayList<String> list
+    private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -24,7 +24,7 @@ public class ScheduleFragment extends Fragment {
 
 
     private void addLecture() {
-        list.add("Test")
+        list.add("Test");
     }
 
 }
