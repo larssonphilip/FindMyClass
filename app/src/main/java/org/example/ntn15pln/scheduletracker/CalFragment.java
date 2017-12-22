@@ -25,7 +25,7 @@ public class CalFragment extends Fragment {
     private int week;
     private View rootView;
     private ImageButton incWeek, decWeek;
-    private TextView currentWeek, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private TextView currentWeek, currentMonth, currentYear, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private Calendar calendar;
     private Date date1 = new Date();
     private LocalDate date;
@@ -37,10 +37,11 @@ public class CalFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_cal, container, false);
         calendar = Calendar.getInstance();
         week = calendar.get(Calendar.WEEK_OF_YEAR);
-        dt = new DateTime(date1);
+
         setViews();
         addDaysToList();
         currentWeek.setText(String.valueOf(week));
+        setWeek();
         setListeners();
         return rootView;
     }
@@ -71,7 +72,10 @@ public class CalFragment extends Fragment {
     }
 
     public void setWeek() {
-
+        for(int i = 1; i < 8; i++) {
+            dt = new DateTime().withWeekOfWeekyear(week).withDayOfWeek(i);
+            days.get(i-1).setText(dt.dayOfMonth().getAsText());
+        }
     }
 
     public void setListeners() {
@@ -82,6 +86,7 @@ public class CalFragment extends Fragment {
                 else if(week == 52) week = 1;
 
                 currentWeek.setText(String.valueOf(week));
+                setWeek();
             }
         });
 
@@ -92,6 +97,7 @@ public class CalFragment extends Fragment {
                 else if(week == 1) week = 52;
 
                 currentWeek.setText(String.valueOf(week));
+                setWeek();
             }
         });
 
