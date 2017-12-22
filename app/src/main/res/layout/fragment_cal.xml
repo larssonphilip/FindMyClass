@@ -133,6 +133,7 @@
 
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cal_week_dates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
@@ -200,5 +201,17 @@
             app:layout_constraintLeft_toRightOf="@id/cal_day_saturday"
             app:layout_constraintRight_toRightOf="parent"
             />
+
+
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/current_year"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:text="currentYear"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/cal_week_dates"/>
 </android.support.constraint.ConstraintLayout>
