@@ -158,17 +158,4 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
         adapter.addAll(list);
     }
-
-
-    //Hindrar listans höjd ifrån att överskrida 500.
-   /* private void setFixedSpinnerHeight() {
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinner);
-            popupWindow.setHeight(500);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {}
-    }*/
 }

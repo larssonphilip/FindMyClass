@@ -38,7 +38,7 @@ public class SuggestCourse implements Runnable{
         try {
             if (Thread.interrupted())
                 throw new InterruptedException();
-
+            //https://kronox.hig.se/ajax/ajax_autocompleteResurser.jsp?typ=program&term=
             String q = URLEncoder.encode(original, "UTF-8");
             URL url = new URL(
                     "http://google.com/complete/search?output=toolbar&q="
