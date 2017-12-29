@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="org.example.ntn15pln.scheduletracker.ScheduleActivity"></activity>
+        <activity android:name="org.example.ntn15pln.scheduletracker.MapActivity"/>
     </application>
 
 </manifest>

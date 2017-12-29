@@ -214,4 +214,13 @@
         android:text="currentYear"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/cal_week_dates"/>
+
+    <Button
+        android:id="@+id/go_to_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to map"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_year"/>
 </android.support.constraint.ConstraintLayout>

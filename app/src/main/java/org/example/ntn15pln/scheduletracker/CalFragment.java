@@ -1,10 +1,12 @@
 package org.example.ntn15pln.scheduletracker;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,6 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 public class CalFragment extends Fragment {
+    //Temp button
+    private Button goToMap;
+
     private int week, month, year;
     private View rootView;
     private ImageButton incWeek, decWeek;
@@ -34,6 +39,13 @@ public class CalFragment extends Fragment {
         week = calendar.get(Calendar.WEEK_OF_YEAR);
 
         setViews();
+        goToMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         addDaysToList();
         currentWeek.setText(String.valueOf(week));
         year = calendar.get(Calendar.YEAR);
@@ -55,6 +67,7 @@ public class CalFragment extends Fragment {
         friday = (TextView) rootView.findViewById(R.id.cal_day_friday);
         saturday = (TextView) rootView.findViewById(R.id.cal_day_saturday);
         sunday = (TextView) rootView.findViewById(R.id.cal_day_sunday);
+        goToMap = (Button) rootView.findViewById(R.id.go_to_map);
 
     }
 
@@ -81,6 +94,8 @@ public class CalFragment extends Fragment {
     }
 
     public void setListeners() {
+
+
         incWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

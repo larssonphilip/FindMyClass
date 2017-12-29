@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "org.example.ntn15pln.scheduletracker"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/joda-time-2.9.9.jar')
+    compile 'com.jsibbold:zoomage:1.1.0'
+    compile 'com.jsibbold:zoomage:1.1.0-SNAPSHOT'
 }
