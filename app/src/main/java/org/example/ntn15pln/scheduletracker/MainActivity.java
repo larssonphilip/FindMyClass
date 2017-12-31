@@ -1,8 +1,11 @@
 package org.example.ntn15pln.scheduletracker;
 
+import android.app.DownloadManager;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
     private Future<?> suggestionPending;
     private List<String> items;
     private ArrayAdapter<String> adapter;
+    private KronoxParser cdlh = new KronoxParser();
+    private DownloadManager downloadManager;
+
+    //schema.hig.se/setup/jsp/SchemaICAL.ics?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
+    //http://schema.hig.se/setup/jsp/Schema.jsp?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
+    private String startDate = "idag";
+    private String programCode = "TGDAY.19104.16";
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,26 @@ public class MainActivity extends AppCompatActivity {
         setListeners();
         setAdapters();
 
+    }
+
+    public String generateURL() {
+        String scheduleURL = "http://schema.hig.se/setup/jsp/SchemaICAL.ics?startDatum=";
+        scheduleURL += startDate + "&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p." + programCode;
+
+        return scheduleURL;
+    }
+
+    public void downloadSchedule() {
+
+        //Fixa så att man frågas efter permission att lagra fil.
+        Uri calURI = Uri.parse(generateURL());
+
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(calURI);
+        request.setTitle("Downloading schedule");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "SC1444.ics");
+        downloadManager.enqueue(request);
     }
 
     @Override
@@ -66,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                downloadSchedule();
                 startActivity(intent);
+
             }
         });
         TextWatcher textWatcher = new TextWatcher() {

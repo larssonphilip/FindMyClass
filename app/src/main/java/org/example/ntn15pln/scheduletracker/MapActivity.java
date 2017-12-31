@@ -1,13 +1,14 @@
 package org.example.ntn15pln.scheduletracker;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
-/**
- * Created by Philip Larsson on 2017-12-29.
- */
+import org.json.JSONException;
+
+import java.io.IOException;
+
 
 public class MapActivity extends AppCompatActivity {
 

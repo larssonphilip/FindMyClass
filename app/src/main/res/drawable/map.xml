@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/map_ph"
-        android:drawable="@drawable/map_placeholder"/>
+        android:drawable="@drawable/map_placeholder" />
     <item
         android:id="@+id/map_marker"
         android:drawable="@drawable/map_marker"

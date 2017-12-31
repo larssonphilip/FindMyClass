@@ -19,8 +19,6 @@
         app:zoomage_translatable="true"
         app:zoomage_minScale=".6"
         app:zoomage_maxScale="8"
-
-        />
-    <!--android:scaleType="centerCrop"-->
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>
