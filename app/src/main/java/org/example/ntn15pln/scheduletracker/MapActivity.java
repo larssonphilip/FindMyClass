@@ -1,9 +1,17 @@
 package org.example.ntn15pln.scheduletracker;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.jsibbold.zoomage.ZoomageView;
 
 import org.json.JSONException;
 
@@ -11,10 +19,40 @@ import java.io.IOException;
 
 
 public class MapActivity extends AppCompatActivity {
+    private int xPos, yPos, phoneHeight, phoneWidth;
+    private ZoomageView zoom;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        setMarkerPos(500, 400);
+        createMap();
+    }
+
+    public void createMap() {
+        zoom = (ZoomageView) findViewById(R.id.zoom);
+        Drawable map = (Drawable) getResources().getDrawable(R.drawable.map_placeholder);
+        Drawable marker = (Drawable) getResources().getDrawable(R.drawable.map_marker);
+        phoneHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        phoneWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        Drawable[] layers = {map, marker};
+        LayerDrawable layersTest = new LayerDrawable(layers);
+        layersTest.setLayerWidth(1, 30);
+        layersTest.setLayerHeight(1, 35);
+        layersTest.setLayerInsetLeft(1, xPos);
+        layersTest.setLayerInsetTop(1, yPos);
+        zoom.setImageDrawable(layersTest);
+        zoom.setScaleRange(1, 8);
+        zoom.setMinimumHeight(phoneHeight);
+        zoom.setMaxHeight(phoneHeight);
+
+    }
+
+    public void setMarkerPos(int x, int y) {
+        xPos = x;
+        yPos = y;
+        /*xPos = (int) (phoneWidth * x);
+        yPos = (int) (phoneHeight * y);*/
     }
 }

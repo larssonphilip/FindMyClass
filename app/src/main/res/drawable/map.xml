@@ -4,11 +4,9 @@
         android:id="@+id/map_ph"
         android:drawable="@drawable/map_placeholder" />
     <item
-        android:id="@+id/map_marker"
+        android:id="@+id/map_marker_layer"
         android:drawable="@drawable/map_marker"
         android:width="10dp"
-        android:height="15dp"
-        android:left="@dimen/markerX"
-        android:top="@dimen/markerY"/>
+        android:height="15dp" />
 
 </layer-list>

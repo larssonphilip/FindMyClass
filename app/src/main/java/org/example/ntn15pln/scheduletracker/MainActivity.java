@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -71,12 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Fixa så att man frågas efter permission att lagra fil.
         Uri calURI = Uri.parse(generateURL());
+        /*File myDir = new File(Environment.getExternalStorageDirectory() + "/Download/temp/");
+        myDir.mkdir();*/
 
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File file = new File(path + "SC1444.ics");
+        boolean deleted = file.delete();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(calURI);
-        request.setTitle("Downloading schedule");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "SC1444.ics");
+        request.setTitle("SC1444");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+        request.setDestinationInExternalPublicDir(path, "SC1444.ics");
         downloadManager.enqueue(request);
     }
 
@@ -97,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoadingScreen.class);
                 downloadSchedule();
                 startActivity(intent);
 

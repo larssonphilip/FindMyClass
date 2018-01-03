@@ -7,15 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
-import java.util.Calendar;
-
-public class CalendarFragment extends Fragment {
+public class CalendarMonthFragment extends Fragment {
     private CalendarView mCalendarView;
     private static String chosenDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.fragment_cal, container, false);
+        View mView = inflater.inflate(R.layout.fragment_calendar_week, container, false);
         mCalendarView = (CalendarView) mView.findViewById(R.id.calendarView);
 
         return mView;

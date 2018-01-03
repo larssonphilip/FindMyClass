@@ -5,6 +5,7 @@
     <string name="no_results">Inget resultat</string>
     <string name="error_text">Error</string>
     <string name="interrupted_text">Avbruten</string>
+    <string name="loading_screen_text">Schemat laddas...</string>
     <string-array name="course_array">
         <item>Item 1</item>
         <item>Item 2</item>

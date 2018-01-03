@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -9,12 +9,19 @@
 
     <fragment
         android:id="@+id/fragment_calendar_test"
-        class="org.example.ntn15pln.scheduletracker.CalFragment"
-        tools:layout="@layout/fragment_cal"
+        class="org.example.ntn15pln.scheduletracker.CalendarWeekFragment"
+        tools:layout="@layout/fragment_calendar_week"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <fragment
+        android:id="@+id/schedule_list_test"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        class="org.example.ntn15pln.scheduletracker.ScheduleFragment"
+        tools:layout="@layout/fragment_schedule" />
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+</LinearLayout>
