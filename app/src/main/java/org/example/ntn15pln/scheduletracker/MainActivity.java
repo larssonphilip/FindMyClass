@@ -126,16 +126,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String query = (String) parent.getItemAtPosition(position);
-                doSearch(query);
+                doSchedule(query);
             }
         };
 
         suggestionsList.setOnItemClickListener(clickListener);
     }
 
-    private void doSearch(String query) {
-        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-        intent.putExtra(SearchManager.QUERY, query);
+    private void doSchedule(String query) {
+        Intent intent = new Intent(MainActivity.this, LoadingScreen.class);
+        int semicolonCounter = 0;
+        for(int z = 0; z < query.length(); z++) {
+            if(query.charAt(z) == ':' && semicolonCounter != 1) {
+                programCode = query.substring(0, z);
+                semicolonCounter++;
+            }
+        }
+
+        downloadSchedule();
         startActivity(intent);
     }
 

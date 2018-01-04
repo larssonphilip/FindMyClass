@@ -1,15 +1,23 @@
 package org.example.ntn15pln.scheduletracker;
 
+import android.text.Html;
 import android.util.Log;
 import android.util.Xml;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,40 +47,36 @@ public class SuggestCourse implements Runnable{
             if (Thread.interrupted())
                 throw new InterruptedException();
             //https://kronox.hig.se/ajax/ajax_autocompleteResurser.jsp?typ=program&term=
-            //https://kronox.hig.se/ajax/ajax_autocompleteResurser.jsp?typ=program&term=
+            //
             String q = URLEncoder.encode(original, "UTF-8");
             URL url = new URL(
-                    "http://google.com/complete/search?output=toolbar&q="
+                    "https://kronox.hig.se/ajax/ajax_autocompleteResurser.jsp?typ=program&term="
                             + q);
-            con = (HttpURLConnection) url.openConnection();
-            con.setReadTimeout(10000);
-            con.setConnectTimeout(15000);
-            con.setRequestMethod("GET");
-            con.addRequestProperty("Referer",
-                    "http://www.pragprog.com/book/eband4");
-            con.setDoInput(true);
+            InputStream in = url.openStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String s, r = "";
 
-            con.connect();
+            while((s = br.readLine()) != null) {
+                r += s;
+            }
+
+            ArrayList<JSONObject> ls = new ArrayList<>();
+
+            JSONArray a;
+                    a = new JSONArray(r);
+            for(int i = 0; i < a.length(); i++) {
+                ls.add(a.getJSONObject(i));
+            }
+
+
+            for(JSONObject o : ls) {
+                String courseName = o.optString("value") + ": " + cleanCourseName( o.optString("label"));
+                messages.add(courseName);
+            }
 
             if (Thread.interrupted())
                 throw new InterruptedException();
 
-            XmlPullParser parser = Xml.newPullParser();
-            parser.setInput(con.getInputStream(), null);
-            int eventType = parser.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                String name = parser.getName();
-                if (eventType == XmlPullParser.START_TAG
-                        && name.equalsIgnoreCase("suggestion")) {
-                    for (int i = 0; i < parser.getAttributeCount(); i++) {
-                        if (parser.getAttributeName(i).equalsIgnoreCase(
-                                "data")) {
-                            messages.add(parser.getAttributeValue(i));
-                        }
-                    }
-                }
-                eventType = parser.next();
-            }
 
             if (Thread.interrupted())
                 throw new InterruptedException();
@@ -81,18 +85,16 @@ public class SuggestCourse implements Runnable{
             Log.e(TAG, "IOException", e);
             error = suggest.getResources().getString(R.string.error_text)
                     + " " + e.toString();
-        } catch (XmlPullParserException e) {
-            Log.e(TAG, "XmlPullParserException", e);
-            error = suggest.getResources().getString(R.string.error_text)
-                    + " " + e.toString();
         } catch (InterruptedException e) {
             Log.d(TAG, "InterruptedException", e);
             error = suggest.getResources().getString(
                     R.string.interrupted_text);
-        } finally {
-            if (con != null) {
-                con.disconnect();
-            }
+        } catch(JSONException e) {
+            Log.e(TAG, "JSONException", e);
+            error = "Error" + " " + e.toString();
+        }
+        finally {
+
         }
 
         if (error != null) {
@@ -107,5 +109,15 @@ public class SuggestCourse implements Runnable{
 
         Log.d(TAG, "   -> returned " + messages);
         return messages;
+    }
+
+    public String cleanCourseName(String s) {
+        s = Html.fromHtml(s).toString();
+        String[] parts = s.split(",");
+        if(parts.length > 1) {
+            return parts[1].trim();
+        } else {
+            return s;
+        }
     }
 }

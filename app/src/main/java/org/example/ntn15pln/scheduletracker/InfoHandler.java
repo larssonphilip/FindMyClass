@@ -26,9 +26,15 @@ public class InfoHandler {
 
 
     public void setStartDate() { startDate = start.substring(0, start.lastIndexOf("T")); }
-    public void setStartTime() { startTime = start.substring(start.lastIndexOf("T")); }
+    public void setStartTime() {
+        int firstPart = Integer.parseInt(start.substring(start.lastIndexOf("T") + 1, start.lastIndexOf("Z")-4)) + 1;
+        startTime = firstPart + ":" + start.substring(start.lastIndexOf("T") + 3, start.lastIndexOf("Z")-2);
+    }
     public void setStopDate() { stopDate = stop.substring(0, stop.lastIndexOf("T")); }
-    public void setStopTime() { stopTime = stop.substring(stop.lastIndexOf("T"));}
+    public void setStopTime() {
+        int firstPart = Integer.parseInt(stop.substring(stop.lastIndexOf("T") + 1, stop.lastIndexOf("Z")-4)) + 1;
+        stopTime = firstPart + ":" + stop.substring(stop.lastIndexOf("T") + 3, stop.lastIndexOf("Z")-2);
+    }
 
 
     public String getStartDate() { return startDate; }

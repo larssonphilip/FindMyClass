@@ -47,7 +47,7 @@ public class ICalParser {
                     for(int i = 2; i < holder.length; i++) {
                         switch(holder[i]) {
                             case "Kurs.grp:":
-                                infoHandler.setCourseCode(holder[i+1]);
+                                infoHandler.setCourseCode(holder[i+1].substring(0, holder[i+1].lastIndexOf("-")));
                             case "Sign:":
                                 infoHandler.setTeacherSignature(holder[i+1]);
                                 if(!holder[i+2].equals("Moment:")) infoHandler.setSecondTeacherSignature(holder[i+2]);

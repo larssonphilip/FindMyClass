@@ -78,8 +78,8 @@ public class ScheduleFragment extends Fragment {
             roomNr.setText("Room");
             teacherSignature.setText("Teacher");*/
 
-            startTime.setText(list.get(position).getStart());
-            stopTime.setText(list.get(position).getStop());
+            startTime.setText(list.get(position).getStartTime());
+            stopTime.setText(list.get(position).getStopTime());
             //Ändra till .getCourseName() när det är fixat.
             courseName.setText(list.get(position).getCourseCode());
             roomNr.setText(list.get(position).getRoomNr());
