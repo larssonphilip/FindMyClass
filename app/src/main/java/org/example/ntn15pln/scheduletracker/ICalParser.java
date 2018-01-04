@@ -1,6 +1,7 @@
 package org.example.ntn15pln.scheduletracker;
 
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,40 +12,37 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class KronoxParser {
-    private static ArrayList<InfoHandler> infos = new ArrayList<InfoHandler>();
+public class ICalParser {
+    public static ArrayList<InfoHandler> infos = new ArrayList<InfoHandler>();
     private boolean first = true;
-    private String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     private InfoHandler infoHandler;
     private BufferedReader br;
     private FileInputStream fis;
     private File file;
+    String[] locHolder;
     public static String control;
 
-    public KronoxParser() {
-        parseICS();
-    }
     /* FileInputStream fileInputStream = new FileInputStream (new File(path + fileName));
     InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);*/
     public void parseICS(){
 
-        infoHandler = new InfoHandler();
+
         try {
             //file = new File(path);
-            fis = new FileInputStream(new File(path, "SC1444.ics"));
+            fis = new FileInputStream(new File(path, "/temp/SC1444.ics"));
             InputStreamReader isr = new InputStreamReader(fis);
             br = new BufferedReader(isr);
 
-            int x = 0;
             String s;
-
+            infoHandler = new InfoHandler();
             while((s = br.readLine()) != null) {
-                String[] holder = s.split(" ");
                 if(s.contains("DTSTART:")) infoHandler.setStart(s.substring(s.lastIndexOf(":") + 1));
                 if(s.contains("DTEND:")) infoHandler.setStop(s.substring(s.lastIndexOf(":") + 1));
 
-                if(holder[0].equals("SUMMARY:Program:")){
+                if(s.contains("SUMMARY:Program:")){
+                    String[] holder = s.split(" ");
                     infoHandler.setProgramCode(holder[1]);
                     for(int i = 2; i < holder.length; i++) {
                         switch(holder[i]) {
@@ -64,17 +62,20 @@ public class KronoxParser {
                         }
                     }
                 }
-                if(holder[0].equals("LOCATION:")) infoHandler.setRoomNr(holder[1]);
-                if(first) {
-
-                    control = infoHandler.getCourseCode();
-                    first = false;
+                if(s.contains("LOCATION:")) {
+                    infoHandler.setRoomNr(s.substring(s.lastIndexOf(":")+1));
                 }
-                infos.add(infoHandler);
+
+                if(s.equals("END:VEVENT") && infoHandler != null) {
+                    infos.add(infoHandler);
+                    infoHandler = new InfoHandler();
+                }
+
+
             }
 
         } catch(IOException e) {
-
+            int i = 7;
         }
     }
 

@@ -21,27 +21,31 @@ import java.io.IOException;
 public class MapActivity extends AppCompatActivity {
     private int xPos, yPos, phoneHeight, phoneWidth;
     private ZoomageView zoom;
+    float x;
+    float y;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        setMarkerPos(500, 400);
+        setMarkerPos(0.185f, 0.175f);
         createMap();
     }
 
     public void createMap() {
+        //Fixa så att mappen scalear beroende på telefonens screen size.
         zoom = (ZoomageView) findViewById(R.id.zoom);
         Drawable map = (Drawable) getResources().getDrawable(R.drawable.map_placeholder);
         Drawable marker = (Drawable) getResources().getDrawable(R.drawable.map_marker);
         phoneHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         phoneWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
         Drawable[] layers = {map, marker};
         LayerDrawable layersTest = new LayerDrawable(layers);
         layersTest.setLayerWidth(1, 30);
         layersTest.setLayerHeight(1, 35);
-        layersTest.setLayerInsetLeft(1, xPos);
-        layersTest.setLayerInsetTop(1, yPos);
+        layersTest.setLayerInsetLeft(1, getX());
+        layersTest.setLayerInsetTop(1, getY());
         zoom.setImageDrawable(layersTest);
         zoom.setScaleRange(1, 8);
         zoom.setMinimumHeight(phoneHeight);
@@ -49,10 +53,16 @@ public class MapActivity extends AppCompatActivity {
 
     }
 
-    public void setMarkerPos(int x, int y) {
-        xPos = x;
-        yPos = y;
-        /*xPos = (int) (phoneWidth * x);
-        yPos = (int) (phoneHeight * y);*/
+    public void setMarkerPos(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return (int) (phoneHeight * x);
+    }
+
+    public int getY() {
+        return (int) (phoneHeight * y);
     }
 }

@@ -2,46 +2,48 @@ package org.example.ntn15pln.scheduletracker;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
     TextView startTime, stopTime, courseName, roomNr, teacherSignature;
-    KronoxParser kp;
+    ICalParser kp;
+    ListView scheduleList;
     private static ArrayList<InfoHandler> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_schedule, container, false);
-        kp = new KronoxParser();
-
+        kp = new ICalParser();
+        kp.parseICS();
         int x = kp.getInfoList().size();
-        //kp.parseICS();
+
         list = kp.getInfoList();
 
-        ListView scheduleList = (ListView) mView.findViewById(R.id.schedule_list);
+        scheduleList = (ListView) mView.findViewById(R.id.schedule_list);
+
         MyAdapter adapter = new MyAdapter();
         scheduleList.setAdapter(adapter);
 
         return mView;
     }
 
+    //Fixa så att enbart den valda dagens lektioner visas.
     class MyAdapter extends BaseAdapter {
         public class ViewHolder{
             TextView startTime, stopTime, courseName, roomNr, teacherSignature;
         }
         @Override
         public int getCount() {
-            return 8;
+            return list.size();
         }
 
         @Override
@@ -69,19 +71,19 @@ public class ScheduleFragment extends Fragment {
             roomNr = (TextView) view.findViewById(R.id.room);
             teacherSignature = (TextView) view.findViewById(R.id.teacher);
 
-            startTime.setText("Start");
+            /*startTime.setText("Start");
             stopTime.setText("Stop");
             //Ändra till .getCourseName() när det är fixat.
             courseName.setText("Course");
             roomNr.setText("Room");
-            teacherSignature.setText("Teacher");
+            teacherSignature.setText("Teacher");*/
 
-            /*startTime.setText(list.get(position).getStart());
+            startTime.setText(list.get(position).getStart());
             stopTime.setText(list.get(position).getStop());
             //Ändra till .getCourseName() när det är fixat.
             courseName.setText(list.get(position).getCourseCode());
             roomNr.setText(list.get(position).getRoomNr());
-            teacherSignature.setText(list.get(position).getTeacherSignature());*/
+            teacherSignature.setText(list.get(position).getTeacherSignature());
             return view;
         }
     }

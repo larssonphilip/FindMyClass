@@ -9,10 +9,11 @@
 
     <fragment
         android:id="@+id/fragment_calendar_test"
-        class="org.example.ntn15pln.scheduletracker.CalendarWeekFragment"
-        tools:layout="@layout/fragment_calendar_week"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        class="org.example.ntn15pln.scheduletracker.CalendarMonthFragment"
+        tools:layout="@layout/fragment_calendar_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <fragment
         android:id="@+id/schedule_list_test"
@@ -20,8 +21,5 @@
         android:layout_height="wrap_content"
         class="org.example.ntn15pln.scheduletracker.ScheduleFragment"
         tools:layout="@layout/fragment_schedule" />
-
-
-
 
 </LinearLayout>

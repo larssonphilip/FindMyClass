@@ -2,6 +2,7 @@ package org.example.ntn15pln.scheduletracker;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +95,6 @@ public class CalendarWeekFragment extends Fragment {
     }
 
     public void setListeners() {
-
 
         incWeek.setOnClickListener(new View.OnClickListener() {
             @Override

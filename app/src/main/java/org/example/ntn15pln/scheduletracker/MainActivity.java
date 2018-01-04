@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Future<?> suggestionPending;
     private List<String> items;
     private ArrayAdapter<String> adapter;
-    private KronoxParser cdlh = new KronoxParser();
+    private ICalParser cdlh = new ICalParser();
     private DownloadManager downloadManager;
 
     //schema.hig.se/setup/jsp/SchemaICAL.ics?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
@@ -75,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
         /*File myDir = new File(Environment.getExternalStorageDirectory() + "/Download/temp/");
         myDir.mkdir();*/
 
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File file = new File(path + "SC1444.ics");
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        File file = new File(path + "/temp/SC1444.ics");
         boolean deleted = file.delete();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(calURI);
         request.setTitle("SC1444");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-        request.setDestinationInExternalPublicDir(path, "SC1444.ics");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "temp/SC1444.ics");
         downloadManager.enqueue(request);
     }
 
