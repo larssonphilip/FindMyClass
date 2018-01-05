@@ -15,16 +15,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
+    //MapActivity map;
     TextView startTime, stopTime, courseName, roomNr, teacherSignature;
     ICalParser kp;
     ListView scheduleList;
+
+    //public String room;
     private static ArrayList<InfoHandler> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_schedule, container, false);
         kp = new ICalParser();
         kp.parseICS();
-        int x = kp.getInfoList().size();
 
         list = kp.getInfoList();
 
@@ -32,6 +34,17 @@ public class ScheduleFragment extends Fragment {
 
         MyAdapter adapter = new MyAdapter();
         scheduleList.setAdapter(adapter);
+
+        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //map.getRoom(list.get(position).getRoomNr());
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                getActivity().startActivity(intent);
+            }
+        };
+
+        scheduleList.setOnItemClickListener(clickListener);
 
         return mView;
     }

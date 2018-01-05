@@ -19,7 +19,7 @@ public class CalendarMonthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         mCalendarView = (CalendarView) mView.findViewById(R.id.calendarView);
-        goToMap = (Button) mView.findViewById(R.id.go_to_map);
+
         setListeners();
 
         return mView;
@@ -31,14 +31,6 @@ public class CalendarMonthFragment extends Fragment {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //Uppdatera schema under kalender efter vilken dag som är vald.
                 chosenDate = "" + year + month + dayOfMonth;
-            }
-        });
-
-        goToMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                getActivity().startActivity(intent);
             }
         });
     }

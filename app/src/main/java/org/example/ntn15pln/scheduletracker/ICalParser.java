@@ -13,24 +13,18 @@ import java.util.ArrayList;
 
 
 public class ICalParser {
+    private static final String TAG = "ICALParser";
     public static ArrayList<InfoHandler> infos = new ArrayList<InfoHandler>();
-    private boolean first = true;
     private String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+    //private String roomNr;
     private InfoHandler infoHandler;
     private BufferedReader br;
     private FileInputStream fis;
     private File file;
-    String[] locHolder;
-    public static String control;
 
-    /* FileInputStream fileInputStream = new FileInputStream (new File(path + fileName));
-    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);*/
     public void parseICS(){
 
-
         try {
-            //file = new File(path);
             fis = new FileInputStream(new File(path, "/temp/SC1444.ics"));
             InputStreamReader isr = new InputStreamReader(fis);
             br = new BufferedReader(isr);
@@ -75,12 +69,8 @@ public class ICalParser {
             }
 
         } catch(IOException e) {
-            int i = 7;
+            Log.e(TAG, "IOException", e);
         }
-    }
-
-    public String getPath() {
-        return path;
     }
 
     public ArrayList<InfoHandler> getInfoList(){
