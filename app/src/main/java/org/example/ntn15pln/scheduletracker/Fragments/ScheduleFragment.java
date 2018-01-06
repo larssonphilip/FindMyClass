@@ -81,7 +81,7 @@ public class ScheduleFragment extends Fragment {
             if(view == null) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                view = inflater.inflate(R.layout.list_style, parent, false);
+                view = inflater.inflate(R.layout.schedule_list_style, parent, false);
             }
 
             startTime = (TextView) view.findViewById(R.id.start_time);

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFF"
     android:orientation="vertical">
-
+<!--
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,13 +27,13 @@
             android:text="Våning"
             android:textSize="25dp"
             app:layout_constraintRight_toRightOf="parent"/>
-    </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>-->
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/zoom"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#4c4a48"
+        android:background="#FFFFFF"
         app:zoomage_restrictBounds="true"
         app:zoomage_animateOnReset="true"
         app:zoomage_autoResetMode="NEVER"
