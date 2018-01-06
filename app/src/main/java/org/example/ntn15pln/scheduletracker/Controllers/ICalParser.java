@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.scheduletracker.Controllers;
 
 import android.os.Environment;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.scheduletracker.Controllers;
 
 public class InfoHandler {
     private String courseName, courseCode, programCode, lectureInfo, start, stop, startDate, stopDate, startTime, stopTime, roomNr, teacherSignature, secondTeacherSignature;

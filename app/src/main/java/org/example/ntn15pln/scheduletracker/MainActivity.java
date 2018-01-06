@@ -1,7 +1,6 @@
 package org.example.ntn15pln.scheduletracker;
 
 import android.app.DownloadManager;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
     //schema.hig.se/setup/jsp/SchemaICAL.ics?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
     //http://schema.hig.se/setup/jsp/Schema.jsp?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
     private String startDate = "idag";
-    private String programCode = "TGDAY.19104.16";
-
-
+    private String programCode = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

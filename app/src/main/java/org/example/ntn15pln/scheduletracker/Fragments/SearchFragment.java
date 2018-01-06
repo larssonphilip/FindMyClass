@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.scheduletracker.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Philip Larsson on 2018-01-03.
- */
+import org.example.ntn15pln.scheduletracker.R;
 
 public class SearchFragment extends Fragment{
 

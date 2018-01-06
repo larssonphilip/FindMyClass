@@ -13,22 +13,14 @@ import com.jsibbold.zoomage.ZoomageView;
 
 
 public class MapActivity extends AppCompatActivity {
-    private int xPos, yPos, phoneHeight, phoneWidth;
+    private static int xPos, yPos;
+    private int phoneHeight, phoneWidth;
     private ZoomageView zoom;
-    private MarkerPositionHandler mph;
-    int x;
-    int y;
-    TextView hheight, hwidth;
-
-    String roomNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        mph = new MarkerPositionHandler();
-        mph.setMarker("99222");
-        setMarkerPos();
         createMap();
     }
 
@@ -45,8 +37,8 @@ public class MapActivity extends AppCompatActivity {
 
         layer.setLayerSize(0, 1000, 650);
         layer.setLayerSize(1, 30, 35);
-        layer.setLayerInsetLeft(1, x);
-        layer.setLayerInsetTop(1, y);
+        layer.setLayerInsetLeft(1, xPos);
+        layer.setLayerInsetTop(1, yPos);
 
         zoom.setImageDrawable(layer);
         zoom.setScaleRange(.5f, 8);
@@ -57,12 +49,8 @@ public class MapActivity extends AppCompatActivity {
 
     }
 
-    public void getRoom(String room) {
-        roomNumber = room;
-    }
-
-    public void setMarkerPos() {
-        this.x = mph.getX();
-        this.y = mph.getY();
+    public static void setMarkerPos(int x, int y) {
+        xPos = x;
+        yPos = y;
     }
 }

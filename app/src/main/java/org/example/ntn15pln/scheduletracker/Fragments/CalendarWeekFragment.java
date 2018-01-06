@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.scheduletracker.Fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.example.ntn15pln.scheduletracker.MapActivity;
+import org.example.ntn15pln.scheduletracker.R;
 import org.joda.time.DateTime;
 
 import java.time.LocalDate;

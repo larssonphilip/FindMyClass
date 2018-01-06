@@ -22,7 +22,7 @@
         android:id="@+id/search_fragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        class="org.example.ntn15pln.scheduletracker.SearchFragment"
+        class="org.example.ntn15pln.scheduletracker.Fragments.SearchFragment"
         tools:layout="@layout/fragment_search" />
 
 </LinearLayout>
