@@ -37,8 +37,8 @@ public class MapActivity extends AppCompatActivity {
 
         layer.setLayerSize(0, 1000, 650);
         layer.setLayerSize(1, 30, 35);
-        layer.setLayerInsetLeft(1, 379);
-        layer.setLayerInsetTop(1, 513);
+        layer.setLayerInsetLeft(1, xPos);
+        layer.setLayerInsetTop(1, yPos);
 
         zoom.setImageDrawable(layer);
         zoom.setScaleRange(.5f, 8);
