@@ -21,7 +21,7 @@ import org.example.ntn15pln.scheduletracker.R;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
-    private TextView startTime, stopTime, courseName, roomNr, teacherSignature;
+    //private TextView startTime, stopTime, courseName, roomNr, teacherSignature;
     private ListView scheduleList;
     private MarkerPositionHandler mph;
     private MyAdapter adapter;
@@ -37,6 +37,7 @@ public class ScheduleFragment extends Fragment {
 
         scheduleList = (ListView) mView.findViewById(R.id.schedule_list);
         mCalendarView = (CalendarView) mView.findViewById(R.id.calendarView);
+
         setAdapter();
 
         setListeners();
@@ -44,9 +45,8 @@ public class ScheduleFragment extends Fragment {
         return mView;
     }
 
-
-
     public void setList(ArrayList<InfoHandler> infoList) {
+        list.clear();
         this.list = infoList;
     }
 
@@ -61,6 +61,7 @@ public class ScheduleFragment extends Fragment {
 
     //Fixa så att enbart den valda dagens lektioner visas.
     class MyAdapter extends BaseAdapter {
+
         @Override
         public int getCount() {
             return list.size();
@@ -78,31 +79,41 @@ public class ScheduleFragment extends Fragment {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
+            ViewHolder viewHolder;
             if(view == null) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 view = inflater.inflate(R.layout.schedule_list_style, parent, false);
+                viewHolder = new ViewHolder(view);
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) view.getTag();
             }
-
-            startTime = (TextView) view.findViewById(R.id.start_time);
-            stopTime = (TextView) view.findViewById(R.id.stop_time);
-            courseName = (TextView) view.findViewById(R.id.course_name);
-            roomNr = (TextView) view.findViewById(R.id.room);
-            teacherSignature = (TextView) view.findViewById(R.id.teacher);
-            startTime.setText(list.get(position).getStartTime());
-            stopTime.setText(list.get(position).getStopTime());
+            viewHolder.startTime.setText(list.get(position).getStartTime());
+            viewHolder.stopTime.setText(list.get(position).getStopTime());
             //Ändra till .getCourseName() när det är fixat.
-            courseName.setText(list.get(position).getCourseCode());
-            roomNr.setText(list.get(position).getRoomNr());
-            teacherSignature.setText(list.get(position).getTeacherSignature());
-
+            viewHolder.courseName.setText(list.get(position).getCourseCode());
+            viewHolder.roomNr.setText(list.get(position).getRoomNr());
+            viewHolder.teacherSignature.setText(list.get(position).getTeacherSignature());
             return view;
+        }
+
+        private class ViewHolder {
+            TextView startTime, stopTime, courseName, roomNr, teacherSignature;
+
+            public ViewHolder(View view) {
+                startTime = (TextView) view.findViewById(R.id.start_time);
+                stopTime = (TextView) view.findViewById(R.id.stop_time);
+                courseName = (TextView) view.findViewById(R.id.course_name);
+                roomNr = (TextView) view.findViewById(R.id.room);
+                teacherSignature = (TextView) view.findViewById(R.id.teacher);
+            }
         }
     }
 
     private void setListeners() {
         scheduleList.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
         AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,6 +125,8 @@ public class ScheduleFragment extends Fragment {
         };
 
         scheduleList.setOnItemClickListener(clickListener);
+
+
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {

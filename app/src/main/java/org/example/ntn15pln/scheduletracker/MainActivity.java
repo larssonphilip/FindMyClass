@@ -13,9 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
@@ -29,9 +27,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    //TEMP BUTTON
-    private ImageView image;
-    private Button cButton;
     private ListView suggestionsList;
     private EditText searchText;
     private Handler guiThread;
@@ -43,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private ICalParser cdlh = new ICalParser();
     private DownloadManager downloadManager;
 
-    //schema.hig.se/setup/jsp/SchemaICAL.ics?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
-    //http://schema.hig.se/setup/jsp/Schema.jsp?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TGDAY.19104.16
     private String startDate = "idag";
     private String programCode = "";
 
@@ -71,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Fixa så att man frågas efter permission att lagra fil.
         Uri calURI = Uri.parse(generateURL());
-        /*File myDir = new File(Environment.getExternalStorageDirectory() + "/Download/temp/");
-        myDir.mkdir();*/
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         File file = new File(path + "/temp/SC1444.ics");
@@ -92,22 +83,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        image = findViewById(R.id.header);
         searchText = findViewById(R.id.search);
         suggestionsList = findViewById(R.id.suggestion_list);
     }
 
     private void setListeners() {
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoadingScreen.class);
-                downloadSchedule();
-                startActivity(intent);
-
-            }
-        });
         TextWatcher textWatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }

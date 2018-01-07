@@ -13,16 +13,15 @@ import java.util.ArrayList;
 
 public class ICalParser {
     private static final String TAG = "ICALParser";
-    public static ArrayList<InfoHandler> infos = new ArrayList<InfoHandler>();
+    public static ArrayList<InfoHandler> infos;
     private String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-    //private String roomNr;
     private InfoHandler infoHandler;
     private BufferedReader br;
     private FileInputStream fis;
     private File file;
 
     public void parseICS(){
-
+        infos = new ArrayList<InfoHandler>();
         try {
             fis = new FileInputStream(new File(path, "/temp/SC1444.ics"));
             InputStreamReader isr = new InputStreamReader(fis);
