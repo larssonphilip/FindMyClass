@@ -18,17 +18,20 @@ import org.example.ntn15pln.scheduletracker.MapActivity;
 import org.example.ntn15pln.scheduletracker.Controllers.MarkerPositionHandler;
 import org.example.ntn15pln.scheduletracker.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ScheduleFragment extends Fragment {
-    //private TextView startTime, stopTime, courseName, roomNr, teacherSignature;
     private ListView scheduleList;
     private MarkerPositionHandler mph;
     private MyAdapter adapter;
     private ArrayList<InfoHandler> list;
     private CalendarView mCalendarView;
-    private static String chosenDate;
-    private View viewtest;
+    private String chosenDate;
+    private Calendar date;
+    private SimpleDateFormat sdf;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_schedule, container, false);
@@ -40,7 +43,27 @@ public class ScheduleFragment extends Fragment {
 
         setAdapter();
 
-        setListeners();
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                //Uppdatera schema under kalender efter vilken dag som är vald.
+                chosenDate = "" + year + month + dayOfMonth;
+            }
+        });
+
+        scheduleList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mph.setMarker(list.get(position).getRoomNr());
+                MapActivity.setMarkerPos(mph.getX(), mph.getY());
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                getActivity().startActivity(intent);
+            }
+        };
+
+        scheduleList.setOnItemClickListener(clickListener);
 
         return mView;
     }
@@ -51,6 +74,9 @@ public class ScheduleFragment extends Fragment {
     }
 
     public void initItems() {
+        sdf = new SimpleDateFormat("yyMMdd");
+        date = Calendar.getInstance();
+        chosenDate = sdf.format(date.getTime());
         list = new ArrayList<>();
         mph = new MarkerPositionHandler();
     }
@@ -89,12 +115,13 @@ public class ScheduleFragment extends Fragment {
             } else {
                 viewHolder = (ViewHolder) view.getTag();
             }
-            viewHolder.startTime.setText(list.get(position).getStartTime());
-            viewHolder.stopTime.setText(list.get(position).getStopTime());
-            //Ändra till .getCourseName() när det är fixat.
-            viewHolder.courseName.setText(list.get(position).getCourseCode());
-            viewHolder.roomNr.setText(list.get(position).getRoomNr());
-            viewHolder.teacherSignature.setText(list.get(position).getTeacherSignature());
+
+                viewHolder.startTime.setText(list.get(position).getStartTime());
+                viewHolder.stopTime.setText(list.get(position).getStopTime());
+                //Ändra till .getCourseName() när det är fixat.
+                viewHolder.courseName.setText(list.get(position).getCourseCode());
+                viewHolder.roomNr.setText(list.get(position).getRoomNr());
+                viewHolder.teacherSignature.setText(list.get(position).getTeacherSignature());
             return view;
         }
 
@@ -109,36 +136,5 @@ public class ScheduleFragment extends Fragment {
                 teacherSignature = (TextView) view.findViewById(R.id.teacher);
             }
         }
-    }
-
-    private void setListeners() {
-        scheduleList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mph.setMarker(list.get(position).getRoomNr());
-                MapActivity.setMarkerPos(mph.getX(), mph.getY());
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                getActivity().startActivity(intent);
-            }
-        };
-
-        scheduleList.setOnItemClickListener(clickListener);
-
-
-        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                //Uppdatera schema under kalender efter vilken dag som är vald.
-                chosenDate = "" + year + month + dayOfMonth;
-                scheduleList.invalidateViews();
-
-            }
-        });
-    }
-
-    public static String getChosenDate() {
-        return chosenDate;
     }
 }

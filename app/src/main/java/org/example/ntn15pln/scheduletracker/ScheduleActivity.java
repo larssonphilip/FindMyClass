@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
-import org.example.ntn15pln.scheduletracker.Fragments.CalendarMonthFragment;
 import org.example.ntn15pln.scheduletracker.Fragments.ScheduleFragment;
 
 public class ScheduleActivity extends Activity {
-    CalendarMonthFragment calendar;
     ScheduleFragment schedule;
     ICalParser kp = new ICalParser();
     @Override
@@ -25,8 +23,14 @@ public class ScheduleActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
-        schedule.setAdapter();
+        //schedule.setAdapter();
         startActivity(intent);
         this.finish();
     }
+
+    public void setSchedule() {
+        //schedule.setChosenDate();
+    }
+
+
 }
