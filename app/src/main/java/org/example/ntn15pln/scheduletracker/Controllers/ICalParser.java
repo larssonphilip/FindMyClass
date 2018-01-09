@@ -11,17 +11,20 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
+/**
+ * ICAL-filen parsas och den informationen som behövs spars ner i info listan.
+ */
+
 public class ICalParser {
     private static final String TAG = "ICALParser";
-    public static ArrayList<InfoHandler> infos;
+    public static ArrayList<InfoHandler> info;
     private String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     private InfoHandler infoHandler;
     private BufferedReader br;
     private FileInputStream fis;
-    private File file;
 
     public void parseICS(){
-        infos = new ArrayList<InfoHandler>();
+        info = new ArrayList<InfoHandler>();
         try {
             fis = new FileInputStream(new File(path, "/temp/SC1444.ics"));
             InputStreamReader isr = new InputStreamReader(fis);
@@ -59,7 +62,7 @@ public class ICalParser {
                 }
 
                 if(s.equals("END:VEVENT") && infoHandler != null) {
-                    infos.add(infoHandler);
+                    info.add(infoHandler);
                     infoHandler = new InfoHandler();
                 }
 
@@ -72,6 +75,6 @@ public class ICalParser {
     }
 
     public ArrayList<InfoHandler> getInfoList(){
-        return infos;
+        return info;
     }
 }

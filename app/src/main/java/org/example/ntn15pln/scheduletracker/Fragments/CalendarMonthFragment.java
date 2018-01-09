@@ -20,17 +20,17 @@ public class CalendarMonthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         mCalendarView = (CalendarView) mView.findViewById(R.id.calendarView);
-        setListeners();
 
         return mView;
     }
 
-    private void setListeners() {
+    public void setListeners(final BaseAdapter adapter) {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //Uppdatera schema under kalender efter vilken dag som är vald.
                 chosenDate = "" + year + month + dayOfMonth;
+                adapter.notifyDataSetChanged();
             }
         });
     }

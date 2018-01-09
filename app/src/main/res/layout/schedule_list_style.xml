@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="20dp"
-            android:text="10:00"
+            android:text="Start"
             android:textColor="#000" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:text="12:00"
+            android:text="Stop"
             android:textColor="#000" />
 
     </LinearLayout>
@@ -44,20 +44,20 @@
             android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Klientutveckling"
+            android:text="CourseName"
             android:textColor="#000"
             android:textSize="15dp"/>
         <TextView
             android:id="@+id/room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99520"
+            android:text="RoomNr"
             android:textSize="13dp"/>
         <TextView
             android:id="@+id/teacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="awi"
+            android:text="TeacherSignature"
             android:textSize="13dp"/>
 
     </LinearLayout>

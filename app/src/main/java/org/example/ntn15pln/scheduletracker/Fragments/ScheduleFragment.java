@@ -13,17 +13,22 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
 import org.example.ntn15pln.scheduletracker.Controllers.InfoHandler;
 import org.example.ntn15pln.scheduletracker.MapActivity;
 import org.example.ntn15pln.scheduletracker.Controllers.MarkerPositionHandler;
 import org.example.ntn15pln.scheduletracker.R;
+import org.example.ntn15pln.scheduletracker.ScheduleActivity;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ScheduleFragment extends Fragment {
     private ListView scheduleList;
+    private ArrayList<InfoHandler> lecturesOfTheDay;
+    //private ScheduleActivity mActivity;
     private MarkerPositionHandler mph;
     private MyAdapter adapter;
     private ArrayList<InfoHandler> list;
@@ -31,6 +36,13 @@ public class ScheduleFragment extends Fragment {
     private String chosenDate;
     private Calendar date;
     private SimpleDateFormat sdf;
+    private  ICalParser kp;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //mActivity = (ScheduleActivity) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,23 +52,37 @@ public class ScheduleFragment extends Fragment {
 
         scheduleList = (ListView) mView.findViewById(R.id.schedule_list);
         mCalendarView = (CalendarView) mView.findViewById(R.id.calendarView);
+        mCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
 
         setAdapter();
+        scheduleList.setAdapter(adapter);
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                //Uppdatera schema under kalender efter vilken dag som är vald.
-                chosenDate = "" + year + month + dayOfMonth;
+                //month och dayOfMonth behöver en nolla framför sig för att sedan kunna matchas med schemats datum.
+                if(month >= 0 || month <= 13) {
+                    month++;
+                    if (month > 9 && dayOfMonth <= 9) {
+                        chosenDate = "" + year + month + "0" + dayOfMonth;
+                    } else if (month <= 9 && dayOfMonth > 9) {
+                        chosenDate = "" + year + "0" + month + dayOfMonth;
+                    } else {
+                        chosenDate = "" + year + month + dayOfMonth;
+                    }
+                }
+
+                getTodaysLectures();
+                adapter.notifyDataSetChanged();
             }
         });
 
-        scheduleList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
         AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mph.setMarker(list.get(position).getRoomNr());
+                mph.setMarker(lecturesOfTheDay.get(position).getRoomNr());
                 MapActivity.setMarkerPos(mph.getX(), mph.getY());
                 Intent intent = new Intent(getActivity(), MapActivity.class);
                 getActivity().startActivity(intent);
@@ -68,17 +94,33 @@ public class ScheduleFragment extends Fragment {
         return mView;
     }
 
-    public void setList(ArrayList<InfoHandler> infoList) {
+    public void getTodaysLectures() {
+        lecturesOfTheDay.clear();
+        for(InfoHandler info : list) {
+            if(chosenDate.equals(info.getDate())) {
+                lecturesOfTheDay.add(info);
+            }
+        }
+    }
+
+    public void setList() {
         list.clear();
-        this.list = infoList;
+        list.addAll(kp.getInfoList());
     }
 
     public void initItems() {
-        sdf = new SimpleDateFormat("yyMMdd");
+        kp = new ICalParser();
+        kp.parseICS();
+
+
+        sdf = new SimpleDateFormat("yyyyMMdd");
         date = Calendar.getInstance();
         chosenDate = sdf.format(date.getTime());
         list = new ArrayList<>();
         mph = new MarkerPositionHandler();
+        setList();
+        lecturesOfTheDay = new ArrayList<>();
+        getTodaysLectures();
     }
 
     public void setAdapter() {
@@ -90,7 +132,7 @@ public class ScheduleFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return list.size();
+            return lecturesOfTheDay.size();
         }
 
         @Override
@@ -116,12 +158,12 @@ public class ScheduleFragment extends Fragment {
                 viewHolder = (ViewHolder) view.getTag();
             }
 
-                viewHolder.startTime.setText(list.get(position).getStartTime());
-                viewHolder.stopTime.setText(list.get(position).getStopTime());
-                //Ändra till .getCourseName() när det är fixat.
-                viewHolder.courseName.setText(list.get(position).getCourseCode());
-                viewHolder.roomNr.setText(list.get(position).getRoomNr());
-                viewHolder.teacherSignature.setText(list.get(position).getTeacherSignature());
+            viewHolder.startTime.setText(lecturesOfTheDay.get(position).getStartTime());
+            viewHolder.stopTime.setText(lecturesOfTheDay.get(position).getStopTime());
+            //Ändra till .getCourseName() när det är fixat.
+            viewHolder.courseName.setText(lecturesOfTheDay.get(position).getCourseCode());
+            viewHolder.roomNr.setText(lecturesOfTheDay.get(position).getRoomNr());
+            viewHolder.teacherSignature.setText(lecturesOfTheDay.get(position).getTeacherSignature());
             return view;
         }
 

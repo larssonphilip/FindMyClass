@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * Loading screen som körs i 2 sekunder för att schemat ska hinna laddas ner.
+ */
+
 public class LoadingScreen extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {

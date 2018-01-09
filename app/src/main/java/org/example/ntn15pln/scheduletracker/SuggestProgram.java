@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SuggestCourse implements Runnable{
-    private static final String TAG = "SuggestCourse";
+public class SuggestProgram implements Runnable{
+    private static final String TAG = "SuggestProgram";
     private final MainActivity suggest;
     private final String searchText;
 
-    SuggestCourse(MainActivity context, String searchText) {
+    SuggestProgram(MainActivity context, String searchText) {
         this.suggest = context;
         this.searchText = searchText;
     }
@@ -37,6 +37,11 @@ public class SuggestCourse implements Runnable{
         suggest.setSuggestions(suggestions);
     }
 
+    /**
+     * Här läser appen in kronox JSON-kod och hämtar därifrån namn på alla program.
+     * @param original
+     * @return
+     */
     private List<String> doSuggest(String original) {
         List<String> messages = new LinkedList<String>();
         String error = null;
@@ -66,7 +71,6 @@ public class SuggestCourse implements Runnable{
             for(int i = 0; i < a.length(); i++) {
                 ls.add(a.getJSONObject(i));
             }
-
 
             for(JSONObject o : ls) {
                 String courseName = o.optString("value") + ": " + cleanCourseName( o.optString("label"));

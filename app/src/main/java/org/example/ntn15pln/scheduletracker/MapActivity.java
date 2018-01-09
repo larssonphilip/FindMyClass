@@ -12,6 +12,12 @@ import android.widget.TextView;
 import com.jsibbold.zoomage.ZoomageView;
 
 
+/**
+ * ZoomageView är ett library för att få zoomfunktion på kartan. Det används via https://jsibbold.github.io/zoomage/
+ *
+ */
+
+
 public class MapActivity extends AppCompatActivity {
     private static int xPos, yPos;
     private int phoneHeight, phoneWidth;
@@ -24,8 +30,11 @@ public class MapActivity extends AppCompatActivity {
         createMap();
     }
 
+    /**
+     * ZoomageView är ett library som används för zoomen.
+     * Diverse lager skapas för kartan och en fast storlek sätts på kartan och markören, för att positionerna ska stämma överens på alla / de flesta mobiler.
+     */
     public void createMap() {
-        //Fixa så att mappen scalear beroende på telefonens screen size.
         zoom = (ZoomageView) findViewById(R.id.zoom);
         phoneHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         phoneWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -41,7 +50,7 @@ public class MapActivity extends AppCompatActivity {
         layer.setLayerInsetTop(1, yPos);
 
         zoom.setImageDrawable(layer);
-        zoom.setScaleRange(.5f, 8);
+        zoom.setScaleRange(.7f, 8);
         zoom.setMinimumWidth(phoneWidth);
         zoom.setMaxWidth(phoneWidth);
         zoom.setMinimumHeight(phoneHeight);

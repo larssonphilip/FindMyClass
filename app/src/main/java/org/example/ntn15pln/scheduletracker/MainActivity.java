@@ -16,8 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
+
+/**
+ * Denna activity tillsammans med SuggestProgram hanterar sökningen utav program.
+ * Detta görs via en egen tråd, för att undvika en seg app.
+ */
 
 public class MainActivity extends AppCompatActivity {
     private ListView suggestionsList;
@@ -35,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private Future<?> suggestionPending;
     private List<String> items;
     private ArrayAdapter<String> adapter;
-    private ICalParser cdlh = new ICalParser();
     private DownloadManager downloadManager;
 
     private String startDate = "idag";
@@ -61,18 +63,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void downloadSchedule() {
-
-        //Fixa så att man frågas efter permission att lagra fil.
         Uri calURI = Uri.parse(generateURL());
-
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         File file = new File(path + "/temp/SC1444.ics");
+
         boolean deleted = file.delete();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
         DownloadManager.Request request = new DownloadManager.Request(calURI);
         request.setTitle("SC1444");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "temp/SC1444.ics");
+
         downloadManager.enqueue(request);
     }
 
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     setText(R.string.loading_text);
 
                     try {
-                        SuggestCourse suggestTask = new SuggestCourse(MainActivity.this, original);
+                        SuggestProgram suggestTask = new SuggestProgram(MainActivity.this, original);
                         suggestionPending = suggestionThread.submit(suggestTask);
                     } catch (RejectedExecutionException e) {
                         setText(R.string.error_text);

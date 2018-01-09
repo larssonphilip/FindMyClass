@@ -9,7 +9,7 @@
 
 
     <!--<fragment
-        android:id="@+id/calendarView"
+        android:id="@+id/calendarViewFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         class="org.example.ntn15pln.scheduletracker.Fragments.CalendarMonthFragment"
