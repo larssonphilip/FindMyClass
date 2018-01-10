@@ -14,8 +14,8 @@
         android:elevation="10dp"
         android:background="#000000"
         android:src="@drawable/hig_logo"
-        android:paddingTop="35dp"
-        android:paddingBottom="35dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         />
 
     <LinearLayout
