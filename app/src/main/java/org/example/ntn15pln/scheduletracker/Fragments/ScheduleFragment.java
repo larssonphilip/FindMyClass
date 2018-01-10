@@ -18,17 +18,17 @@ import org.example.ntn15pln.scheduletracker.Controllers.InfoHandler;
 import org.example.ntn15pln.scheduletracker.MapActivity;
 import org.example.ntn15pln.scheduletracker.Controllers.MarkerPositionHandler;
 import org.example.ntn15pln.scheduletracker.R;
-import org.example.ntn15pln.scheduletracker.ScheduleActivity;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ *
+ */
 public class ScheduleFragment extends Fragment {
     private ListView scheduleList;
     private ArrayList<InfoHandler> lecturesOfTheDay;
-    //private ScheduleActivity mActivity;
     private MarkerPositionHandler mph;
     private MyAdapter adapter;
     private ArrayList<InfoHandler> list;
@@ -36,13 +36,7 @@ public class ScheduleFragment extends Fragment {
     private String chosenDate;
     private Calendar date;
     private SimpleDateFormat sdf;
-    private  ICalParser kp;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //mActivity = (ScheduleActivity) context;
-    }
+    private ICalParser parser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +54,11 @@ public class ScheduleFragment extends Fragment {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                //month och dayOfMonth behöver en nolla framför sig för att sedan kunna matchas med schemats datum.
+
+                /*
+                * Koden nedanför ser till så att kalenderns datum skrivs till chosenDate
+                * i rätt format, för att kunna matchas med schemats datum.
+                */
                 if(month >= 0 || month <= 13) {
                     month++;
                     if (month > 9 && dayOfMonth <= 9) {
@@ -77,8 +75,6 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
-
-
         AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,6 +90,10 @@ public class ScheduleFragment extends Fragment {
         return mView;
     }
 
+    /**
+     * getTodaysLectures() tar de lektioner som matchar det valda datumet hos kalendern och lägger
+     * in dom i lecturesOfTheDay-listan.
+     */
     public void getTodaysLectures() {
         lecturesOfTheDay.clear();
         for(InfoHandler info : list) {
@@ -103,14 +103,17 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
+    /**
+     * setList() hämtar en lista med informationen som kommer från ICAL-filen, ifrån ICalParsern.
+     */
     public void setList() {
         list.clear();
-        list.addAll(kp.getInfoList());
+        list.addAll(parser.getInfoList());
     }
 
     public void initItems() {
-        kp = new ICalParser();
-        kp.parseICS();
+        parser = new ICalParser();
+        parser.parseICS();
 
 
         sdf = new SimpleDateFormat("yyyyMMdd");
@@ -127,7 +130,9 @@ public class ScheduleFragment extends Fragment {
         adapter = new MyAdapter();
     }
 
-    //Fixa så att enbart den valda dagens lektioner visas.
+    /**
+     * MyAdapter ändrar så att listan ser ut som den gör, istället för att se ut som en vanlig lista.
+     */
     class MyAdapter extends BaseAdapter {
 
         @Override

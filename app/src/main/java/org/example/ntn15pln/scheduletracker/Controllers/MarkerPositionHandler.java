@@ -1,9 +1,18 @@
 package org.example.ntn15pln.scheduletracker.Controllers;
 
+/**
+ * Denna klass hanterar markörens positionering
+ */
+
 public class MarkerPositionHandler {
 
     int x, y;
 
+    /**
+     * room parsas till en int och matchar de två första tecknen med en byggnad,
+     * därefter sätts x och y till koordinater för att hamna på rätt position på kartan.
+     * @param room
+     */
     public void setMarker(String room) {
         try {
             if(Integer.parseInt(room.substring(0, 2)) == 99) {

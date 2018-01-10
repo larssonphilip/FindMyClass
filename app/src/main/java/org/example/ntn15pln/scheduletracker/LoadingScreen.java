@@ -20,9 +20,17 @@ public class LoadingScreen extends AppCompatActivity{
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingScreen.this, ScheduleActivity.class);
-                startActivity(intent);
+                goToSchedule();
             }
         }, 2000);
+
+
+    }
+
+
+    public void goToSchedule() {
+        Intent intent = new Intent(LoadingScreen.this, ScheduleActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 }
