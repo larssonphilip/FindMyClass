@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.example.ntn15pln.scheduletracker">
+    package="org.example.ntn15pln.findmyclass">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,16 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name="org.example.ntn15pln.scheduletracker.MainActivity">
+        <activity android:name="org.example.ntn15pln.findmyclass.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.example.ntn15pln.scheduletracker.ScheduleActivity"/>
-        <activity android:name="org.example.ntn15pln.scheduletracker.MapActivity"/>
-        <activity android:name="org.example.ntn15pln.scheduletracker.LoadingScreen"/>
+        <activity android:name="org.example.ntn15pln.findmyclass.ScheduleActivity"/>
+        <activity android:name="org.example.ntn15pln.findmyclass.MapActivity"/>
+        <activity android:name="org.example.ntn15pln.findmyclass.LoadingScreen"/>
     </application>
 
 </manifest>

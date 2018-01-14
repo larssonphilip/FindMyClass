@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker.Controllers;
+package org.example.ntn15pln.findmyclass.Controllers;
 
 /**
  * Denna klass hanterar markörens positionering

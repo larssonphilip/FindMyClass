@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.findmyclass;
 
 import org.junit.Test;
 

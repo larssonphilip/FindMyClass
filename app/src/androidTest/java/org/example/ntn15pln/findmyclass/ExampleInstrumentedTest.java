@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.findmyclass;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

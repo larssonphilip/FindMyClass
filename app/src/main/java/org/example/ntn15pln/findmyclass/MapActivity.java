@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.findmyclass;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;

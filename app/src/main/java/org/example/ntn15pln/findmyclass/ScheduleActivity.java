@@ -1,4 +1,4 @@
-package org.example.ntn15pln.scheduletracker;
+package org.example.ntn15pln.findmyclass;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.example.ntn15pln.scheduletracker.Controllers.ICalParser;
-import org.example.ntn15pln.scheduletracker.Controllers.InfoHandler;
-import org.example.ntn15pln.scheduletracker.Controllers.MarkerPositionHandler;
+import org.example.ntn15pln.findmyclass.Controllers.ICalParser;
+import org.example.ntn15pln.findmyclass.Controllers.InfoHandler;
+import org.example.ntn15pln.findmyclass.Controllers.MarkerPositionHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
