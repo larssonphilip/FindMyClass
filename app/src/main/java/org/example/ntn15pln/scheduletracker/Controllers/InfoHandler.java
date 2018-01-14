@@ -3,7 +3,6 @@ package org.example.ntn15pln.scheduletracker.Controllers;
 public class InfoHandler{
     private String courseName, courseCode, programCode, lectureInfo, start, stop, startDate, startTime, stopTime, roomNr, teacherSignature, secondTeacherSignature;
 
-
     public void setCourseName(String courseName) { this.courseName = courseName; }
     public void setCourseCode(String courseCode) { this.courseCode = courseCode; }
     public void setProgramCode(String programCode) { this.programCode = programCode; }

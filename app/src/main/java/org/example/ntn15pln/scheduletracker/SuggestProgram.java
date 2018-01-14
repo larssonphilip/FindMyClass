@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Denna klass hanterar det mesta utav sökförslagsfunktionen.
+ * Kronox JSON-kod hämtas och parsas till Strings som hamnar i en lista "messages".
+ */
 public class SuggestProgram implements Runnable{
     private static final String TAG = "SuggestProgram";
     private final MainActivity suggest;
@@ -40,7 +44,7 @@ public class SuggestProgram implements Runnable{
     /**
      * Här läser appen in kronox JSON-kod och hämtar därifrån namn på alla program.
      * @param original
-     * @return
+     * @return messages:List<String>
      */
     private List<String> doSuggest(String original) {
         List<String> messages = new LinkedList<String>();
@@ -114,6 +118,11 @@ public class SuggestProgram implements Runnable{
         return messages;
     }
 
+    /**
+     * Här parsas kursnamnet ifrån HTML till en String.
+     * @param s
+     * @return kursnamnet.
+     */
     public String cleanCourseName(String s) {
         s = Html.fromHtml(s).toString();
         String[] parts = s.split(",");

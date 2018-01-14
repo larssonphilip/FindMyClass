@@ -1,22 +1,16 @@
 package org.example.ntn15pln.scheduletracker;
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
 import com.jsibbold.zoomage.ZoomageView;
 
-
 /**
+ * Denna klass skapar och hanterar själva kartan och markören.
  * ZoomageView är ett library för att få zoomfunktion på kartan. Det används via https://jsibbold.github.io/zoomage/
- *
  */
-
 
 public class MapActivity extends AppCompatActivity {
     private static int xPos, yPos;

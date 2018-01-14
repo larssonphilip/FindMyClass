@@ -5,4 +5,8 @@
     <string name="error_text">Error</string>
     <string name="interrupted_text">Avbruten</string>
     <string name="loading_screen_text">Schemat laddas...</string>
+    <string name="permission_needed_title">Tillstånd saknas.</string>
+    <string name="permission_needed_text_long">Denna applikation kräver tillstånd att lagra och läsa filer på enheten. Gå till inställningar för att ge appen tillstånd.</string>
+    <string name="permission_needed_text">Appen kräver tillstånd att läsa och lagra filer på enheten för att kunna köras vidare.</string>
+    <string name="permission_ok">OK</string>
 </resources>
